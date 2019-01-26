@@ -19,27 +19,6 @@ namespace MyPhotos
             menuView.DropDown = ctxMenuPhoto;
         }
 
-        private void SetTitleBar()
-        {
-            Version ver = new Version(Application.ProductVersion);
-            Text = String.Format("MyPhotos {0:0}.{1:0}", ver.Major, ver.Minor);
-        }
-
-        private void SetStatusStrip(string path)
-        {
-            if (pbxPhoto.Image != null)
-            {
-                statusInfo.Text = path;
-                statusImageSize.Text = String.Format("{0:#}x{1:#}", pbxPhoto.Image.Width, pbxPhoto.Image.Height);
-            }
-            else
-            {
-                statusInfo.Text = null;
-                statusImageSize.Text = null;
-                statusAlbumPos.Text = null;
-            }
-        }
-
         private void menuFileLoad_Click(object sender, EventArgs e)
         {
             OpenFileDialog dlg = new OpenFileDialog();
@@ -62,17 +41,18 @@ namespace MyPhotos
             }
             dlg.Dispose();
         }
-
         private void menuFileExit_Click(object sender, EventArgs e)
         {
             Close();
         }
-
         private void menuImage_DropDownItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
             ProcessImageClick(e);
         }
-
+        private void menuImage_DropDownOpening(object sender, EventArgs e)
+        {
+            ProcessImageOpening(sender as ToolStripDropDownItem);
+        }
         private void ProcessImageClick(ToolStripItemClickedEventArgs e)
         {
             ToolStripItem item = e.ClickedItem;
@@ -82,12 +62,6 @@ namespace MyPhotos
                 pbxPhoto.SizeMode = (PictureBoxSizeMode)Enum.Parse(typeof(PictureBoxSizeMode), enumVal);
             }
         }
-
-        private void menuImage_DropDownOpening(object sender, EventArgs e)
-        {
-            ProcessImageOpening(sender as ToolStripDropDownItem);
-        }
-
         private void ProcessImageOpening(ToolStripDropDownItem parent)
         {
             if (parent != null)
@@ -100,9 +74,24 @@ namespace MyPhotos
                 }
             }
         }
-
-
-
-
+        private void SetStatusStrip(string path)
+        {
+            if (pbxPhoto.Image != null)
+            {
+                statusInfo.Text = path;
+                statusImageSize.Text = String.Format("{0:#}x{1:#}", pbxPhoto.Image.Width, pbxPhoto.Image.Height);
+            }
+            else
+            {
+                statusInfo.Text = null;
+                statusImageSize.Text = null;
+                statusAlbumPos.Text = null;
+            }
+        }
+        private void SetTitleBar()
+        {
+            Version ver = new Version(Application.ProductVersion);
+            Text = String.Format("MyPhotos {0:0}.{1:0}", ver.Major, ver.Minor);
+        }
     }
 }
