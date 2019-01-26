@@ -22,7 +22,7 @@ namespace MyPhotos
             Text = String.Format("MyPhotos {0:0}.{1:0}", ver.Major, ver.Minor);
         }
 
-        private void btnLoad_Click(object sender, EventArgs e)
+        private void menuFileLoad_Click(object sender, EventArgs e)
         {
             OpenFileDialog dlg = new OpenFileDialog();
             dlg.Title = "Open Photo";
@@ -40,8 +40,12 @@ namespace MyPhotos
                     pbxPhoto.Image = null;
                 }
             }
-
             dlg.Dispose();
+        }
+
+        private void menuFileExit_Click(object sender, EventArgs e)
+        {
+            Close();
         }
     }
 }
