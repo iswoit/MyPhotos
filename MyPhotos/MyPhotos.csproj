@@ -94,5 +94,11 @@
       <Install>true</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MyPhotoAlbum\MyPhotoAlbum.csproj">
+      <Project>{7b3fdeb6-31f5-46aa-8907-edb6f2bc885a}</Project>
+      <Name>MyPhotoAlbum</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

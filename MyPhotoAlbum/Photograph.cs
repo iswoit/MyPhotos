@@ -10,13 +10,13 @@ namespace Manning.MyPhotoAlbum
     /// </summary>
     public class Photograph : IDisposable
     {
-        private string _fileName;
         private Bitmap _bitmap;
         private string _caption = "";
-        private string _photographer = "";
         private DateTime _dateTaken = DateTime.Now;
-        private string _notes = "";
+        private string _fileName;
         private bool _hasChanged = true;
+        private string _notes = "";
+        private string _photographer = "";
 
         public Photograph(string fileName)
         {
@@ -25,21 +25,6 @@ namespace Manning.MyPhotoAlbum
             _caption = System.IO.Path.GetFileNameWithoutExtension(fileName);
         }
 
-        public string FileName
-        {
-            get { return _fileName; }
-        }
-        public Bitmap Image
-        {
-            get
-            {
-                if (_bitmap == null)
-                {
-                    _bitmap = new Bitmap(_fileName);
-                }
-                return _bitmap;
-            }
-        }
         public string Caption
         {
             get { return _caption; }
@@ -48,18 +33,6 @@ namespace Manning.MyPhotoAlbum
                 if (_caption != value)
                 {
                     _caption = value;
-                    HasChanged = true;
-                }
-            }
-        }
-        public string Photographer
-        {
-            get { return _photographer; }
-            set
-            {
-                if (_photographer != value)
-                {
-                    _photographer = value;
                     HasChanged = true;
                 }
             }
@@ -76,6 +49,26 @@ namespace Manning.MyPhotoAlbum
                 }
             }
         }
+        public string FileName
+        {
+            get { return _fileName; }
+        }
+        public bool HasChanged
+        {
+            get { return _hasChanged; }
+            internal set { _hasChanged = value; }
+        }
+        public Bitmap Image
+        {
+            get
+            {
+                if (_bitmap == null)
+                {
+                    _bitmap = new Bitmap(_fileName);
+                }
+                return _bitmap;
+            }
+        }
         public string Notes
         {
             get { return _notes; }
@@ -88,10 +81,17 @@ namespace Manning.MyPhotoAlbum
                 }
             }
         }
-        public bool HasChanged
+        public string Photographer
         {
-            get { return _hasChanged; }
-            internal set { _hasChanged = value; }
+            get { return _photographer; }
+            set
+            {
+                if (_photographer != value)
+                {
+                    _photographer = value;
+                    HasChanged = true;
+                }
+            }
         }
 
         public void Dispose()
