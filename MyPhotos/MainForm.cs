@@ -27,6 +27,11 @@ namespace MyPhotos
             set { _manager = value; }
         }
 
+        private void ctxMenuPhoto_Opening(object sender, CancelEventArgs e)
+        {
+            menuNext.Enabled = (Manager.Index < Manager.Album.Count - 1);
+            menuPrevious.Enabled = (Manager.Index > 0);
+        }
         private void DisplayAlbum()
         {
             pbxPhoto.Image = Manager.CurrentImage;
@@ -68,6 +73,41 @@ namespace MyPhotos
         {
             Close();
         }
+        private void menuEditAdd_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog dlg = new OpenFileDialog();
+            dlg.Title = "Add Photos";
+            dlg.Multiselect = true;
+            dlg.Filter = "Image Files (JPEG, GIF, BMP, etc.)|*.jpg;*.jpeg;*.gif;*.bmp;*.tif;*.tiff;*.png|" + "JPEG files (*.jpg;*.jpeg)|*.jpg;*.jpeg|" + "GIF files (*.gif)|*.gif|" + "BMP files (*.bmp)|*.bmp|" + "TIFF files (*.tif;*.tiff)|*.tif;*.tiff|" + "PNG files (*.png)|*.png|" + "All files (*.*)|*.*";
+            dlg.InitialDirectory = Environment.CurrentDirectory;
+            if (dlg.ShowDialog() == DialogResult.OK)
+            {
+                string[] files = dlg.FileNames;
+                int index = 0;
+                foreach (string s in files)
+                {
+                    Photograph photo = new Photograph(s);
+
+                    // Add the file (if not already present)
+                    index = Manager.Album.IndexOf(photo);
+                    if (index < 0)
+                        Manager.Album.Add(photo);
+                    else
+                        photo.Dispose();
+                }
+                Manager.Index = Manager.Album.Count - 1;
+            }
+            dlg.Dispose();
+            DisplayAlbum();
+        }
+        private void menuEditRemove_Click(object sender, EventArgs e)
+        {
+            if (Manager.Album.Count > 0)
+            {
+                Manager.Album.RemoveAt(Manager.Index);
+                DisplayAlbum();
+            }
+        }
         private void menuImage_DropDownItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
             ProcessImageClick(e);
@@ -75,6 +115,38 @@ namespace MyPhotos
         private void menuImage_DropDownOpening(object sender, EventArgs e)
         {
             ProcessImageOpening(sender as ToolStripDropDownItem);
+        }
+        private void menuNext_Click(object sender, EventArgs e)
+        {
+            if (Manager.Index < Manager.Album.Count - 1)
+            {
+                Manager.Index++;
+                DisplayAlbum();
+            }
+        }
+        private void menuPrevious_Click(object sender, EventArgs e)
+        {
+            if (Manager.Index > 0)
+            {
+                Manager.Index--;
+                DisplayAlbum();
+            }
+        }
+        private void MainForm_MouseWheel(object sender, MouseEventArgs e)
+        {
+            if (Manager.Album != null && Manager.Album.Count > 0)
+            {
+                if (e.Delta < 0)
+                {
+                    if (Manager.MoveNext())
+                        DisplayAlbum();
+                }
+                else if (e.Delta > 0)
+                {
+                    if (Manager.MovePrev())
+                        DisplayAlbum();
+                }
+            }
         }
         private void NewAlbum()
         {
@@ -135,8 +207,9 @@ namespace MyPhotos
         {
             if (pbxPhoto.Image != null)
             {
-                statusInfo.Text = Manager.Current.FileName;
+                statusInfo.Text = Manager.Current.Caption;
                 statusImageSize.Text = String.Format("{0:#}x{1:#}", pbxPhoto.Image.Width, pbxPhoto.Image.Height);
+                statusAlbumPos.Text = String.Format("{0:0}/{1:0}", Manager.Index + 1, Manager.Album.Count);
             }
             else
             {

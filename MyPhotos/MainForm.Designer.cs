@@ -36,12 +36,10 @@
             this.menuImageScale = new System.Windows.Forms.ToolStripMenuItem();
             this.menuImageStretch = new System.Windows.Forms.ToolStripMenuItem();
             this.menuImageActual = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripSeparator();
+            this.menuPrevious = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuNext = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.menuView = new System.Windows.Forms.ToolStripMenuItem();
-            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
-            this.statusInfo = new System.Windows.Forms.ToolStripStatusLabel();
-            this.statusImageSize = new System.Windows.Forms.ToolStripStatusLabel();
-            this.statusAlbumPos = new System.Windows.Forms.ToolStripStatusLabel();
             this.menuFile = new System.Windows.Forms.ToolStripMenuItem();
             this.menuFileNew = new System.Windows.Forms.ToolStripMenuItem();
             this.menuFileOpen = new System.Windows.Forms.ToolStripMenuItem();
@@ -57,14 +55,16 @@
             this.剪切TToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.复制CToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.粘贴PToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.帮助HToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.关于AToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
             this.menuEditAdd = new System.Windows.Forms.ToolStripMenuItem();
             this.menuEditRemove = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripSeparator();
-            this.menuNext = new System.Windows.Forms.ToolStripMenuItem();
-            this.menuPrevious = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuView = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuHelp = new System.Windows.Forms.ToolStripMenuItem();
+            this.关于AToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.statusInfo = new System.Windows.Forms.ToolStripStatusLabel();
+            this.statusImageSize = new System.Windows.Forms.ToolStripStatusLabel();
+            this.statusAlbumPos = new System.Windows.Forms.ToolStripStatusLabel();
             ((System.ComponentModel.ISupportInitialize)(this.pbxPhoto)).BeginInit();
             this.ctxMenuPhoto.SuspendLayout();
             this.menuStrip1.SuspendLayout();
@@ -89,10 +89,11 @@
             this.ctxMenuPhoto.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.menuImage,
             this.toolStripMenuItem3,
-            this.menuNext,
-            this.menuPrevious});
+            this.menuPrevious,
+            this.menuNext});
             this.ctxMenuPhoto.Name = "ctxMenuPhoto";
             this.ctxMenuPhoto.Size = new System.Drawing.Size(242, 76);
+            this.ctxMenuPhoto.Opening += new System.ComponentModel.CancelEventHandler(this.ctxMenuPhoto_Opening);
             // 
             // menuImage
             // 
@@ -129,6 +130,29 @@
             this.menuImageActual.Tag = "Normal";
             this.menuImageActual.Text = "&Actual Size";
             // 
+            // toolStripMenuItem3
+            // 
+            this.toolStripMenuItem3.Name = "toolStripMenuItem3";
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(238, 6);
+            // 
+            // menuPrevious
+            // 
+            this.menuPrevious.Name = "menuPrevious";
+            this.menuPrevious.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
+            | System.Windows.Forms.Keys.P)));
+            this.menuPrevious.Size = new System.Drawing.Size(241, 22);
+            this.menuPrevious.Text = "&Previous";
+            this.menuPrevious.Click += new System.EventHandler(this.menuPrevious_Click);
+            // 
+            // menuNext
+            // 
+            this.menuNext.Name = "menuNext";
+            this.menuNext.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
+            | System.Windows.Forms.Keys.N)));
+            this.menuNext.Size = new System.Drawing.Size(241, 22);
+            this.menuNext.Text = "N&ext";
+            this.menuNext.Click += new System.EventHandler(this.menuNext_Click);
+            // 
             // menuStrip1
             // 
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
@@ -136,60 +160,12 @@
             this.menuFile,
             this.menuEdit,
             this.menuView,
-            this.帮助HToolStripMenuItem});
+            this.menuHelp});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(800, 28);
             this.menuStrip1.TabIndex = 2;
             this.menuStrip1.Text = "menuStrip1";
-            // 
-            // menuView
-            // 
-            this.menuView.Name = "menuView";
-            this.menuView.Size = new System.Drawing.Size(51, 24);
-            this.menuView.Text = "&View";
-            // 
-            // statusStrip1
-            // 
-            this.statusStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
-            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.statusInfo,
-            this.statusImageSize,
-            this.statusAlbumPos});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 426);
-            this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(800, 24);
-            this.statusStrip1.TabIndex = 3;
-            this.statusStrip1.Text = "statusStrip1";
-            // 
-            // statusInfo
-            // 
-            this.statusInfo.AutoSize = false;
-            this.statusInfo.Name = "statusInfo";
-            this.statusInfo.Size = new System.Drawing.Size(699, 19);
-            this.statusInfo.Spring = true;
-            this.statusInfo.Text = "Desc";
-            this.statusInfo.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // statusImageSize
-            // 
-            this.statusImageSize.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) 
-            | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) 
-            | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
-            this.statusImageSize.BorderStyle = System.Windows.Forms.Border3DStyle.SunkenInner;
-            this.statusImageSize.Name = "statusImageSize";
-            this.statusImageSize.Size = new System.Drawing.Size(51, 19);
-            this.statusImageSize.Text = "W x H";
-            // 
-            // statusAlbumPos
-            // 
-            this.statusAlbumPos.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) 
-            | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) 
-            | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
-            this.statusAlbumPos.BorderStyle = System.Windows.Forms.Border3DStyle.SunkenInner;
-            this.statusAlbumPos.Name = "statusAlbumPos";
-            this.statusAlbumPos.Size = new System.Drawing.Size(35, 19);
-            this.statusAlbumPos.Text = "1/1";
             // 
             // menuFile
             // 
@@ -214,7 +190,7 @@
             this.menuFileNew.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.menuFileNew.Name = "menuFileNew";
             this.menuFileNew.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
-            this.menuFileNew.Size = new System.Drawing.Size(216, 26);
+            this.menuFileNew.Size = new System.Drawing.Size(189, 26);
             this.menuFileNew.Text = "&New";
             this.menuFileNew.Click += new System.EventHandler(this.menuFileNew_Click);
             // 
@@ -224,14 +200,14 @@
             this.menuFileOpen.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.menuFileOpen.Name = "menuFileOpen";
             this.menuFileOpen.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-            this.menuFileOpen.Size = new System.Drawing.Size(216, 26);
+            this.menuFileOpen.Size = new System.Drawing.Size(189, 26);
             this.menuFileOpen.Text = "&Open";
             this.menuFileOpen.Click += new System.EventHandler(this.menuFileOpen_Click);
             // 
             // toolStripSeparator
             // 
             this.toolStripSeparator.Name = "toolStripSeparator";
-            this.toolStripSeparator.Size = new System.Drawing.Size(213, 6);
+            this.toolStripSeparator.Size = new System.Drawing.Size(186, 6);
             // 
             // menuFileSave
             // 
@@ -239,21 +215,21 @@
             this.menuFileSave.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.menuFileSave.Name = "menuFileSave";
             this.menuFileSave.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.menuFileSave.Size = new System.Drawing.Size(216, 26);
+            this.menuFileSave.Size = new System.Drawing.Size(189, 26);
             this.menuFileSave.Text = "&Save";
             this.menuFileSave.Click += new System.EventHandler(this.menuFileSave_Click);
             // 
             // menuFileSaveAs
             // 
             this.menuFileSaveAs.Name = "menuFileSaveAs";
-            this.menuFileSaveAs.Size = new System.Drawing.Size(216, 26);
+            this.menuFileSaveAs.Size = new System.Drawing.Size(189, 26);
             this.menuFileSaveAs.Text = "Save &As";
             this.menuFileSaveAs.Click += new System.EventHandler(this.menuFileSaveAs_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(213, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(186, 6);
             // 
             // 打印PToolStripMenuItem
             // 
@@ -261,7 +237,7 @@
             this.打印PToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.打印PToolStripMenuItem.Name = "打印PToolStripMenuItem";
             this.打印PToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.P)));
-            this.打印PToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
+            this.打印PToolStripMenuItem.Size = new System.Drawing.Size(189, 26);
             this.打印PToolStripMenuItem.Text = "打印(&P)";
             // 
             // 打印预览VToolStripMenuItem
@@ -269,18 +245,18 @@
             this.打印预览VToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("打印预览VToolStripMenuItem.Image")));
             this.打印预览VToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.打印预览VToolStripMenuItem.Name = "打印预览VToolStripMenuItem";
-            this.打印预览VToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
+            this.打印预览VToolStripMenuItem.Size = new System.Drawing.Size(189, 26);
             this.打印预览VToolStripMenuItem.Text = "打印预览(&V)";
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(213, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(186, 6);
             // 
             // menuFileExit
             // 
             this.menuFileExit.Name = "menuFileExit";
-            this.menuFileExit.Size = new System.Drawing.Size(216, 26);
+            this.menuFileExit.Size = new System.Drawing.Size(189, 26);
             this.menuFileExit.Text = "E&xit";
             this.menuFileExit.Click += new System.EventHandler(this.menuFileExit_Click);
             // 
@@ -324,20 +300,6 @@
             this.粘贴PToolStripMenuItem.Size = new System.Drawing.Size(231, 26);
             this.粘贴PToolStripMenuItem.Text = "粘贴(&P)";
             // 
-            // 帮助HToolStripMenuItem
-            // 
-            this.帮助HToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.关于AToolStripMenuItem});
-            this.帮助HToolStripMenuItem.Name = "帮助HToolStripMenuItem";
-            this.帮助HToolStripMenuItem.Size = new System.Drawing.Size(73, 24);
-            this.帮助HToolStripMenuItem.Text = "帮助(&H)";
-            // 
-            // 关于AToolStripMenuItem
-            // 
-            this.关于AToolStripMenuItem.Name = "关于AToolStripMenuItem";
-            this.关于AToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
-            this.关于AToolStripMenuItem.Text = "关于(&A)...";
-            // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
@@ -350,6 +312,7 @@
             | System.Windows.Forms.Keys.A)));
             this.menuEditAdd.Size = new System.Drawing.Size(231, 26);
             this.menuEditAdd.Text = "Ad&d";
+            this.menuEditAdd.Click += new System.EventHandler(this.menuEditAdd_Click);
             // 
             // menuEditRemove
             // 
@@ -358,30 +321,73 @@
             | System.Windows.Forms.Keys.R)));
             this.menuEditRemove.Size = new System.Drawing.Size(231, 26);
             this.menuEditRemove.Text = "Remo&ve";
+            this.menuEditRemove.Click += new System.EventHandler(this.menuEditRemove_Click);
             // 
-            // toolStripMenuItem3
+            // menuView
             // 
-            this.toolStripMenuItem3.Name = "toolStripMenuItem3";
-            this.toolStripMenuItem3.Size = new System.Drawing.Size(238, 6);
+            this.menuView.Name = "menuView";
+            this.menuView.Size = new System.Drawing.Size(51, 24);
+            this.menuView.Text = "&View";
             // 
-            // menuNext
+            // menuHelp
             // 
-            this.menuNext.Name = "menuNext";
-            this.menuNext.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
-            | System.Windows.Forms.Keys.N)));
-            this.menuNext.Size = new System.Drawing.Size(241, 22);
-            this.menuNext.Text = "N&ext";
+            this.menuHelp.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.关于AToolStripMenuItem});
+            this.menuHelp.Name = "menuHelp";
+            this.menuHelp.Size = new System.Drawing.Size(51, 24);
+            this.menuHelp.Text = "&Help";
             // 
-            // menuPrevious
+            // 关于AToolStripMenuItem
             // 
-            this.menuPrevious.Name = "menuPrevious";
-            this.menuPrevious.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
-            | System.Windows.Forms.Keys.P)));
-            this.menuPrevious.Size = new System.Drawing.Size(241, 22);
-            this.menuPrevious.Text = "&Previous";
+            this.关于AToolStripMenuItem.Name = "关于AToolStripMenuItem";
+            this.关于AToolStripMenuItem.Size = new System.Drawing.Size(158, 26);
+            this.关于AToolStripMenuItem.Text = "关于(&A)...";
+            // 
+            // statusStrip1
+            // 
+            this.statusStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.statusInfo,
+            this.statusImageSize,
+            this.statusAlbumPos});
+            this.statusStrip1.Location = new System.Drawing.Point(0, 426);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Size = new System.Drawing.Size(800, 24);
+            this.statusStrip1.TabIndex = 3;
+            this.statusStrip1.Text = "statusStrip1";
+            // 
+            // statusInfo
+            // 
+            this.statusInfo.AutoSize = false;
+            this.statusInfo.Name = "statusInfo";
+            this.statusInfo.Size = new System.Drawing.Size(699, 19);
+            this.statusInfo.Spring = true;
+            this.statusInfo.Text = "Desc";
+            this.statusInfo.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // statusImageSize
+            // 
+            this.statusImageSize.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) 
+            | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) 
+            | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
+            this.statusImageSize.BorderStyle = System.Windows.Forms.Border3DStyle.SunkenInner;
+            this.statusImageSize.Name = "statusImageSize";
+            this.statusImageSize.Size = new System.Drawing.Size(51, 19);
+            this.statusImageSize.Text = "W x H";
+            // 
+            // statusAlbumPos
+            // 
+            this.statusAlbumPos.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) 
+            | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) 
+            | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
+            this.statusAlbumPos.BorderStyle = System.Windows.Forms.Border3DStyle.SunkenInner;
+            this.statusAlbumPos.Name = "statusAlbumPos";
+            this.statusAlbumPos.Size = new System.Drawing.Size(35, 19);
+            this.statusAlbumPos.Text = "1/1";
             // 
             // MainForm
             // 
+            this.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseWheel);
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
@@ -435,7 +441,7 @@
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem menuEditAdd;
         private System.Windows.Forms.ToolStripMenuItem menuEditRemove;
-        private System.Windows.Forms.ToolStripMenuItem 帮助HToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem menuHelp;
         private System.Windows.Forms.ToolStripMenuItem 关于AToolStripMenuItem;
     }
 }

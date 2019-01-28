@@ -24,8 +24,9 @@ namespace Manning.MyPhotoAlbum
         public AlbumManager(string name) : this()
         {
             _name = name;
-            // TODO: load the album
-            throw new NotImplementedException();
+            _album = AlbumStorage.ReadAlbum(name);
+            if (Album.Count > 0)
+                Index = 0;
         }
 
         public PhotoAlbum Album
@@ -89,12 +90,11 @@ namespace Manning.MyPhotoAlbum
 
         static public bool AlbumExists(string name)
         {
-            // TODO: implement AlbumExists method
-            return false;
+            return File.Exists(name);
         }
         public bool MoveNext()
         {
-            if (Index >= Album.Count)
+            if (Index >= Album.Count - 1)
                 return false;
             Index++;
             return true;
@@ -108,13 +108,18 @@ namespace Manning.MyPhotoAlbum
         }
         public void Save()
         {
-            // TODO:
-            throw new NotImplementedException();
+            if (FullName == null)
+                throw new InvalidOperationException("Unable to save album with nio name");
+            AlbumStorage.WriteAlbum(Album, FullName);
         }
         public void Save(string name, bool overwrite)
         {
-            // TODO:
-            throw new NotImplementedException();
+            if (name == null)
+                throw new ArgumentNullException("name");
+            if (name != FullName && AlbumExists(name) && !overwrite)
+                throw new ArgumentException("An album with this name exists");
+            AlbumStorage.WriteAlbum(Album, name);
+            FullName = name;
         }
     }
 }
