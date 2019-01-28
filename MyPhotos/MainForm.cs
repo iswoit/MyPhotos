@@ -48,7 +48,6 @@ namespace MyPhotos
             dlg.Title = "Open Album";
             dlg.Filter = "Album files (*.abm)|*.abm|All files (*.*)|*.*";
             dlg.InitialDirectory = AlbumManager.DefaultPath;
-            dlg.RestoreDirectory = true;
 
             if (dlg.ShowDialog() == DialogResult.OK)
             {
@@ -80,6 +79,8 @@ namespace MyPhotos
             dlg.Multiselect = true;
             dlg.Filter = "Image Files (JPEG, GIF, BMP, etc.)|*.jpg;*.jpeg;*.gif;*.bmp;*.tif;*.tiff;*.png|" + "JPEG files (*.jpg;*.jpeg)|*.jpg;*.jpeg|" + "GIF files (*.gif)|*.gif|" + "BMP files (*.bmp)|*.bmp|" + "TIFF files (*.tif;*.tiff)|*.tif;*.tiff|" + "PNG files (*.png)|*.png|" + "All files (*.*)|*.*";
             dlg.InitialDirectory = Environment.CurrentDirectory;
+            dlg.RestoreDirectory = true;
+            
             if (dlg.ShowDialog() == DialogResult.OK)
             {
                 string[] files = dlg.FileNames;
@@ -116,19 +117,19 @@ namespace MyPhotos
         {
             ProcessImageOpening(sender as ToolStripDropDownItem);
         }
-        private void menuNext_Click(object sender, EventArgs e)
-        {
-            if (Manager.Index < Manager.Album.Count - 1)
-            {
-                Manager.Index++;
-                DisplayAlbum();
-            }
-        }
         private void menuPrevious_Click(object sender, EventArgs e)
         {
             if (Manager.Index > 0)
             {
                 Manager.Index--;
+                DisplayAlbum();
+            }
+        }
+        private void menuNext_Click(object sender, EventArgs e)
+        {
+            if (Manager.Index < Manager.Album.Count - 1)
+            {
+                Manager.Index++;
                 DisplayAlbum();
             }
         }

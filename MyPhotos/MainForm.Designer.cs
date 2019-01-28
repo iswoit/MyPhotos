@@ -76,9 +76,9 @@
             this.pbxPhoto.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.pbxPhoto.ContextMenuStrip = this.ctxMenuPhoto;
             this.pbxPhoto.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pbxPhoto.Location = new System.Drawing.Point(0, 28);
+            this.pbxPhoto.Location = new System.Drawing.Point(0, 24);
             this.pbxPhoto.Name = "pbxPhoto";
-            this.pbxPhoto.Size = new System.Drawing.Size(800, 422);
+            this.pbxPhoto.Size = new System.Drawing.Size(800, 426);
             this.pbxPhoto.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pbxPhoto.TabIndex = 1;
             this.pbxPhoto.TabStop = false;
@@ -163,7 +163,7 @@
             this.menuHelp});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(800, 28);
+            this.menuStrip1.Size = new System.Drawing.Size(800, 24);
             this.menuStrip1.TabIndex = 2;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -190,7 +190,7 @@
             this.menuFileNew.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.menuFileNew.Name = "menuFileNew";
             this.menuFileNew.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
-            this.menuFileNew.Size = new System.Drawing.Size(189, 26);
+            this.menuFileNew.Size = new System.Drawing.Size(216, 26);
             this.menuFileNew.Text = "&New";
             this.menuFileNew.Click += new System.EventHandler(this.menuFileNew_Click);
             // 
@@ -387,7 +387,6 @@
             // 
             // MainForm
             // 
-            this.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseWheel);
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
@@ -396,6 +395,7 @@
             this.Controls.Add(this.menuStrip1);
             this.Name = "MainForm";
             this.Text = "MyPhotos";
+            this.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseWheel);
             ((System.ComponentModel.ISupportInitialize)(this.pbxPhoto)).EndInit();
             this.ctxMenuPhoto.ResumeLayout(false);
             this.menuStrip1.ResumeLayout(false);
