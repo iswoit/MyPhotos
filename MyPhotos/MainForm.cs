@@ -51,11 +51,22 @@ namespace MyPhotos
 
             if (dlg.ShowDialog() == DialogResult.OK)
             {
-                // TODO: save any existing album.
+                string path = dlg.FileName;
+                // Close any existing album
+                if (!SaveAndCloseAlbum())
+                    return;     // Close canceled
+                try
+                {
+                    Manager = new AlbumManager(path);
+                }
+                catch (AlbumStorageException aex)
+                {
+                    string msg = String.Format("Unable to open album file {0}\n({1})", path, aex.Message);
+                    MessageBox.Show(msg, "Unable to Open");
 
-                // Open the new Album
-                // TODO: handle invalid album file
-                Manager = new AlbumManager(dlg.FileName);
+                    Manager = new AlbumManager();
+                }
+
                 DisplayAlbum();
             }
             dlg.Dispose();
@@ -80,7 +91,7 @@ namespace MyPhotos
             dlg.Filter = "Image Files (JPEG, GIF, BMP, etc.)|*.jpg;*.jpeg;*.gif;*.bmp;*.tif;*.tiff;*.png|" + "JPEG files (*.jpg;*.jpeg)|*.jpg;*.jpeg|" + "GIF files (*.gif)|*.gif|" + "BMP files (*.bmp)|*.bmp|" + "TIFF files (*.tif;*.tiff)|*.tif;*.tiff|" + "PNG files (*.png)|*.png|" + "All files (*.*)|*.*";
             dlg.InitialDirectory = Environment.CurrentDirectory;
             dlg.RestoreDirectory = true;
-            
+
             if (dlg.ShowDialog() == DialogResult.OK)
             {
                 string[] files = dlg.FileNames;
@@ -151,9 +162,21 @@ namespace MyPhotos
         }
         private void NewAlbum()
         {
-            // TODO:clean up,save existing album
-            Manager = new AlbumManager();
-            DisplayAlbum();
+            if (Manager == null || SaveAndCloseAlbum())
+            {
+                // Album closed, create a new one
+                Manager = new AlbumManager();
+                DisplayAlbum();
+            }
+        }
+        protected override void OnFormClosing(FormClosingEventArgs e)
+        {
+            if (SaveAndCloseAlbum() == false)
+                e.Cancel = true;
+            else
+                e.Cancel = false;
+
+            base.OnFormClosing(e);
         }
         private void ProcessImageClick(ToolStripItemClickedEventArgs e)
         {
@@ -178,7 +201,17 @@ namespace MyPhotos
         }
         private void SaveAlbum(string name)
         {
-            Manager.Save(name, true);
+            try
+            {
+                Manager.Save(name, true);
+            }
+            catch (AlbumStorageException aex)
+            {
+                string msg = String.Format("Unable to save album {0} ({1})\n\nDo you wish to save the album under an alternate name?", name, aex.Message);
+                DialogResult result = MessageBox.Show(msg, "Unable to Save", MessageBoxButtons.YesNo, MessageBoxIcon.Error, MessageBoxDefaultButton.Button2);
+                if (result == DialogResult.Yes)
+                    SaveAsAlbum();
+            }
         }
         private void SaveAlbum()
         {
@@ -186,6 +219,32 @@ namespace MyPhotos
                 SaveAsAlbum();
             else
                 SaveAlbum(Manager.FullName);
+        }
+        private bool SaveAndCloseAlbum()
+        {
+            if (Manager.Album.HasChanged)
+            {
+                // Offer to save the current album
+                string msg;
+                if (String.IsNullOrEmpty(Manager.FullName))
+                    msg = "Do you wish to save your changes?";
+                else
+                    msg = String.Format("Do you wish to save your changes to\n{0}?", Manager.FullName);
+
+                DialogResult result = MessageBox.Show(this, msg, "Save Changes?", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
+                if (result == DialogResult.Yes)
+                    SaveAlbum();
+                else if (result == DialogResult.Cancel)
+                    return false;
+            }
+
+            // Close the album and return true
+            if (Manager.Album != null)
+                Manager.Album.Dispose();
+
+            Manager = new AlbumManager();
+            SetTitleBar();
+            return true;
         }
         private void SaveAsAlbum()
         {
