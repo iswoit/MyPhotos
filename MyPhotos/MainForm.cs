@@ -6,12 +6,14 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 using Manning.MyPhotoAlbum;
+using Manning.MyPhotoControls;
 
 namespace MyPhotos
 {
     public partial class MainForm : Form
     {
         private AlbumManager _manager;
+        private PixelDialog _dlgPixel = null;
 
         public MainForm()
         {
@@ -26,6 +28,11 @@ namespace MyPhotos
             get { return _manager; }
             set { _manager = value; }
         }
+        private PixelDialog PixelForm
+        {
+            get { return _dlgPixel; }
+            set { _dlgPixel = value; }
+        }
 
         private void ctxMenuPhoto_Opening(object sender, CancelEventArgs e)
         {
@@ -37,6 +44,9 @@ namespace MyPhotos
             pbxPhoto.Image = Manager.CurrentImage;
             SetStatusStrip();
             SetTitleBar();
+
+            Point p = pbxPhoto.PointToClient(Form.MousePosition);
+            UpdatePixelDialog(p.X, p.Y);
         }
         private void menuFileNew_Click(object sender, EventArgs e)
         {
@@ -144,6 +154,18 @@ namespace MyPhotos
                 DisplayAlbum();
             }
         }
+        private void menuPixelData_Click(object sender, EventArgs e)
+        {
+            if(PixelForm==null||PixelForm.IsDisposed)
+            {
+                PixelForm = new PixelDialog();
+                PixelForm.Owner = this;
+            }
+
+            PixelForm.Show();
+            Point p = pbxPhoto.PointToClient(Form.MousePosition);
+            UpdatePixelDialog(p.X, p.Y);
+        }
         private void MainForm_MouseWheel(object sender, MouseEventArgs e)
         {
             if (Manager.Album != null && Manager.Album.Count > 0)
@@ -177,6 +199,10 @@ namespace MyPhotos
                 e.Cancel = false;
 
             base.OnFormClosing(e);
+        }
+        private void pbxPhoto_MouseMove(object sender, MouseEventArgs e)
+        {
+            UpdatePixelDialog(e.X, e.Y);
         }
         private void ProcessImageClick(ToolStripItemClickedEventArgs e)
         {
@@ -284,7 +310,20 @@ namespace MyPhotos
             string name = Manager.FullName;
             Text = String.Format("{2} - MyPhotos {0:0}.{1:0}", ver.Major, ver.Minor, String.IsNullOrEmpty(name) ? "Untitled" : name);
         }
+        private void UpdatePixelDialog(int x,int y)
+        {
+            if(PixelForm!=null&&PixelForm.Visible)
+            {
+                Bitmap bmp = Manager.CurrentImage;
+                PixelForm.Text = (Manager.Current == null) ? "Pixel Data" : Manager.Current.Caption;
 
+                if (bmp == null || !pbxPhoto.DisplayRectangle.Contains(x, y))
+                    PixelForm.ClearPixelDate();
+                else
+                    PixelForm.UpdatePixelData(x, y, bmp, pbxPhoto.DisplayRectangle, new Rectangle(0, 0, bmp.Width, bmp.Height), pbxPhoto.SizeMode);
+            }
+        }
 
+        
     }
 }
