@@ -38,6 +38,7 @@ namespace MyPhotos
         {
             menuNext.Enabled = (Manager.Index < Manager.Album.Count - 1);
             menuPrevious.Enabled = (Manager.Index > 0);
+            menuPhotoProps.Enabled = (Manager.Current != null);
         }
         private void DisplayAlbum()
         {
@@ -138,6 +139,16 @@ namespace MyPhotos
         {
             ProcessImageOpening(sender as ToolStripDropDownItem);
         }
+        private void menuPhotoProps_Click(object sender, EventArgs e)
+        {
+            if (Manager.Current == null)
+                return;
+            using (PhotoEditDialog dlg = new PhotoEditDialog(Manager))
+            {
+                if (dlg.ShowDialog() == DialogResult.OK)
+                    DisplayAlbum();
+            }
+        }
         private void menuPrevious_Click(object sender, EventArgs e)
         {
             if (Manager.Index > 0)
@@ -156,7 +167,7 @@ namespace MyPhotos
         }
         private void menuPixelData_Click(object sender, EventArgs e)
         {
-            if(PixelForm==null||PixelForm.IsDisposed)
+            if (PixelForm == null || PixelForm.IsDisposed)
             {
                 PixelForm = new PixelDialog();
                 PixelForm.Owner = this;
@@ -310,9 +321,9 @@ namespace MyPhotos
             string name = Manager.FullName;
             Text = String.Format("{2} - MyPhotos {0:0}.{1:0}", ver.Major, ver.Minor, String.IsNullOrEmpty(name) ? "Untitled" : name);
         }
-        private void UpdatePixelDialog(int x,int y)
+        private void UpdatePixelDialog(int x, int y)
         {
-            if(PixelForm!=null&&PixelForm.Visible)
+            if (PixelForm != null && PixelForm.Visible)
             {
                 Bitmap bmp = Manager.CurrentImage;
                 PixelForm.Text = (Manager.Current == null) ? "Pixel Data" : Manager.Current.Caption;

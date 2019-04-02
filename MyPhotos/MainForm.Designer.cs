@@ -39,6 +39,8 @@
             this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripSeparator();
             this.menuPrevious = new System.Windows.Forms.ToolStripMenuItem();
             this.menuNext = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
+            this.menuPixelData = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.menuFile = new System.Windows.Forms.ToolStripMenuItem();
             this.menuFileNew = new System.Windows.Forms.ToolStripMenuItem();
@@ -65,8 +67,7 @@
             this.statusInfo = new System.Windows.Forms.ToolStripStatusLabel();
             this.statusImageSize = new System.Windows.Forms.ToolStripStatusLabel();
             this.statusAlbumPos = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
-            this.menuPixelData = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuPhotoProps = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.pbxPhoto)).BeginInit();
             this.ctxMenuPhoto.SuspendLayout();
             this.menuStrip1.SuspendLayout();
@@ -79,7 +80,7 @@
             this.pbxPhoto.ContextMenuStrip = this.ctxMenuPhoto;
             this.pbxPhoto.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pbxPhoto.Location = new System.Drawing.Point(0, 24);
-            this.pbxPhoto.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.pbxPhoto.Margin = new System.Windows.Forms.Padding(2);
             this.pbxPhoto.Name = "pbxPhoto";
             this.pbxPhoto.Size = new System.Drawing.Size(600, 336);
             this.pbxPhoto.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -96,9 +97,10 @@
             this.menuPrevious,
             this.menuNext,
             this.toolStripMenuItem2,
-            this.menuPixelData});
+            this.menuPixelData,
+            this.menuPhotoProps});
             this.ctxMenuPhoto.Name = "ctxMenuPhoto";
-            this.ctxMenuPhoto.Size = new System.Drawing.Size(196, 104);
+            this.ctxMenuPhoto.Size = new System.Drawing.Size(196, 148);
             this.ctxMenuPhoto.Opening += new System.ComponentModel.CancelEventHandler(this.ctxMenuPhoto_Opening);
             // 
             // menuImage
@@ -158,6 +160,18 @@
             this.menuNext.Size = new System.Drawing.Size(195, 22);
             this.menuNext.Text = "N&ext";
             this.menuNext.Click += new System.EventHandler(this.menuNext_Click);
+            // 
+            // toolStripMenuItem2
+            // 
+            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(192, 6);
+            // 
+            // menuPixelData
+            // 
+            this.menuPixelData.Name = "menuPixelData";
+            this.menuPixelData.Size = new System.Drawing.Size(195, 22);
+            this.menuPixelData.Text = "Pi&xel Data...";
+            this.menuPixelData.Click += new System.EventHandler(this.menuPixelData_Click);
             // 
             // menuStrip1
             // 
@@ -368,7 +382,7 @@
             // 
             this.statusInfo.AutoSize = false;
             this.statusInfo.Name = "statusInfo";
-            this.statusInfo.Size = new System.Drawing.Size(523, 19);
+            this.statusInfo.Size = new System.Drawing.Size(550, 19);
             this.statusInfo.Spring = true;
             this.statusInfo.Text = "Desc";
             this.statusInfo.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -390,20 +404,15 @@
             | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
             this.statusAlbumPos.BorderStyle = System.Windows.Forms.Border3DStyle.SunkenInner;
             this.statusAlbumPos.Name = "statusAlbumPos";
-            this.statusAlbumPos.Size = new System.Drawing.Size(27, 19);
+            this.statusAlbumPos.Size = new System.Drawing.Size(27, 16);
             this.statusAlbumPos.Text = "1/1";
             // 
-            // toolStripMenuItem2
+            // menuPhotoProps
             // 
-            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(192, 6);
-            // 
-            // menuPixelData
-            // 
-            this.menuPixelData.Name = "menuPixelData";
-            this.menuPixelData.Size = new System.Drawing.Size(195, 22);
-            this.menuPixelData.Text = "Pi&xel Data...";
-            this.menuPixelData.Click += new System.EventHandler(this.menuPixelData_Click);
+            this.menuPhotoProps.Name = "menuPhotoProps";
+            this.menuPhotoProps.Size = new System.Drawing.Size(195, 22);
+            this.menuPhotoProps.Text = "Phot&o Properties...";
+            this.menuPhotoProps.Click += new System.EventHandler(this.menuPhotoProps_Click);
             // 
             // MainForm
             // 
@@ -413,7 +422,7 @@
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.pbxPhoto);
             this.Controls.Add(this.menuStrip1);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "MainForm";
             this.Text = "MyPhotos";
             this.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseWheel);
@@ -466,6 +475,7 @@
         private System.Windows.Forms.ToolStripMenuItem 关于AToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem2;
         private System.Windows.Forms.ToolStripMenuItem menuPixelData;
+        private System.Windows.Forms.ToolStripMenuItem menuPhotoProps;
     }
 }
 
