@@ -7,7 +7,7 @@ namespace Manning.MyPhotoAlbum
 {
     public static class AlbumStorage
     {
-        static private int CurrentVersion = 63;
+        static private int CurrentVersion = 91;
 
         static public PhotoAlbum ReadAlbum(string path)
         {
@@ -23,6 +23,9 @@ namespace Manning.MyPhotoAlbum
                 {
                     case "63":
                         ReadAlbumV63(sr, album);
+                        break;
+                    case "91":
+                        ReadAlbumV91(sr, album);
                         break;
                     default:
                         throw new AlbumStorageException("Unrecognized album version");
@@ -51,6 +54,15 @@ namespace Manning.MyPhotoAlbum
                     album.Add(p);
             } while (p != null);
         }
+        static private void ReadAlbumV91(StreamReader sr, PhotoAlbum album)
+        {
+            album.Title = sr.ReadLine();
+            string enumVal = sr.ReadLine();
+            album.PhotoDescriptor = (PhotoAlbum.DescriptorOption)Enum.Parse(typeof(PhotoAlbum.DescriptorOption), enumVal);
+
+            // Version 91 finishes with Version 63
+            ReadAlbumV63(sr, album);
+        }
         static private Photograph ReadPhotoV63(StreamReader sr)
         {
             // Presume at the start of photo
@@ -75,6 +87,10 @@ namespace Manning.MyPhotoAlbum
                 sw = new StreamWriter(path, false);
                 sw.WriteLine(CurrentVersion.ToString());
 
+                // Save album properties
+                sw.WriteLine(album.Title);
+                sw.WriteLine(album.PhotoDescriptor.ToString());
+
                 // Store each photo separately
                 foreach (Photograph p in album)
                     WritePhoto(sw, p);
@@ -82,7 +98,7 @@ namespace Manning.MyPhotoAlbum
                 // Reset changed after all photos written
                 album.HasChanged = false;
             }
-            catch(UnauthorizedAccessException uax)
+            catch (UnauthorizedAccessException uax)
             {
                 throw new AlbumStorageException("Unable to access album " + path, uax);
             }
@@ -92,7 +108,7 @@ namespace Manning.MyPhotoAlbum
                     sw.Close();
             }
         }
-        static private void WritePhoto(StreamWriter sw,Photograph p)
+        static private void WritePhoto(StreamWriter sw, Photograph p)
         {
             sw.WriteLine(p.FileName);
             sw.WriteLine(p.Caption != null ? p.Caption : "");

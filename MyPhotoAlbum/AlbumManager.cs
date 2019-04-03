@@ -12,6 +12,7 @@ namespace Manning.MyPhotoAlbum
         static private string _defaultPath;
         private string _name = String.Empty;
         private int _pos = -1;
+        private string _pwd;
 
         static AlbumManager()
         {
@@ -86,6 +87,11 @@ namespace Manning.MyPhotoAlbum
                 else
                     return Path.GetFileNameWithoutExtension(FullName);
             }
+        }
+        public string Password
+        {
+            get { return _pwd; }
+            set { _pwd = value; }
         }
 
         static public bool AlbumExists(string name)

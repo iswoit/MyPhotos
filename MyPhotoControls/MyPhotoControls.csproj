@@ -37,6 +37,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AlbumEditDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AlbumEditDialog.Designer.cs">
+      <DependentUpon>AlbumEditDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="BaseEditDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -64,6 +70,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="AlbumEditDialog.resx">
+      <DependentUpon>AlbumEditDialog.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="BaseEditDialog.resx">
       <DependentUpon>BaseEditDialog.cs</DependentUpon>
     </EmbeddedResource>
